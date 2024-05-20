@@ -1,5 +1,9 @@
 package main;
 
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
+
 public class GamePanel extends JPanel{
     
     public static final int WIDTH = 1100;
