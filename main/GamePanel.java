@@ -36,6 +36,9 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel(){
         setPreferredSize(new Dimension (WIDTH, HEIGHT));
         setBackground(Color.black);    
+
+        setPieces();
+        copyPieces(pieces, simPieces );
     }
 
     public void launchGame(){
@@ -88,7 +91,9 @@ public class GamePanel extends JPanel implements Runnable{
     public void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target){
 
         target.clear();
-        for(int i = 0; int )
+        for(int i = 0; i < source.size(); i++){
+            target.add(source.get(i));
+        }
     }
     @Override
         public void run() {
@@ -123,7 +128,13 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g;
 
+        //board
         board.draw(g2);
+
+        //pieces
+        for(Piece p : simPieces){
+            p.draw(g2);
+        }
     }
 
     
