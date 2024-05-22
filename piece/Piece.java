@@ -41,7 +41,7 @@ public class Piece {
     public int getX(int col){
         return col * Board.SQUARE_SIZE;
     }
-    public int getY(int roq){
+    public int getY(int row){
         return row * Board.SQUARE_SIZE;
     }
     public void draw(Graphics2D g2){
