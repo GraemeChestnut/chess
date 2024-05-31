@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     //COLOR
     public static final int WHITE = 0;
-    public static final int BLACk = 1;
+    public static final int BLACK = 1;
     int currentColor = WHITE;
 
 
@@ -38,13 +38,13 @@ public class GamePanel extends JPanel implements Runnable{
         setBackground(Color.black);    
 
         setPieces();
-        copyPieces(pieces, simPieces );
+        copyPieces(simPieces, pieces);
     }
 
     public void launchGame(){
         gameThread = new Thread(this);
         gameThread.start();
-
+        
         setPieces();
     }
 
@@ -69,26 +69,26 @@ public class GamePanel extends JPanel implements Runnable{
         pieces.add(new King(WHITE, 4, 7));
 
         //Black team 
-        pieces.add(new Pawn(BLACk, 0, 1));
-        pieces.add(new Pawn(BLACk, 1, 1));
-        pieces.add(new Pawn(BLACk, 2, 1));
-        pieces.add(new Pawn(BLACk, 3, 1));
-        pieces.add(new Pawn(BLACk, 4, 1));
-        pieces.add(new Pawn(BLACk, 5, 1));
-        pieces.add(new Pawn(BLACk, 6, 1));
-        pieces.add(new Pawn(BLACk, 7, 1));
-        pieces.add(new Knight(BLACk, 1, 0));
-        pieces.add(new Knight(BLACk, 6, 0));
-        pieces.add(new Rook(BLACk, 0, 0));
-        pieces.add(new Rook(BLACk, 7, 0));
-        pieces.add(new Bishop(BLACk, 2,0));
-        pieces.add(new Bishop(BLACk, 5, 0));
-        pieces.add(new Queen(BLACk, 3, 0));
-        pieces.add(new King(BLACk, 4, 0));
+        pieces.add(new Pawn(BLACK, 0, 1));
+        pieces.add(new Pawn(BLACK, 1, 1));
+        pieces.add(new Pawn(BLACK, 2, 1));
+        pieces.add(new Pawn(BLACK, 3, 1));
+        pieces.add(new Pawn(BLACK, 4, 1));
+        pieces.add(new Pawn(BLACK, 5, 1));
+        pieces.add(new Pawn(BLACK, 6, 1));
+        pieces.add(new Pawn(BLACK, 7, 1));
+        pieces.add(new Knight(BLACK, 1, 0));
+        pieces.add(new Knight(BLACK, 6, 0));
+        pieces.add(new Rook(BLACK, 0, 0));
+        pieces.add(new Rook(BLACK, 7, 0));
+        pieces.add(new Bishop(BLACK, 2,0));
+        pieces.add(new Bishop(BLACK, 5, 0));
+        pieces.add(new Queen(BLACK, 3, 0));
+        pieces.add(new King(BLACK, 4, 0));
 
     }
 
-    public void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target){
+    public void copyPieces(ArrayList<Piece> target, ArrayList<Piece> source){
 
         target.clear();
         for(int i = 0; i < source.size(); i++){
@@ -132,10 +132,12 @@ public class GamePanel extends JPanel implements Runnable{
         board.draw(g2);
 
         //pieces
-        for(Piece p : simPieces){
-            p.draw(g2);
+    
+        for(int i = 0; i < simPieces.size(); i++){
+          
+            simPieces.get(i).draw(g2);
         }
     }
 
-    
+
 }

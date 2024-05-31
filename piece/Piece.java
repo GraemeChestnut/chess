@@ -3,14 +3,13 @@ package piece;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
+import java.awt.*;
 import javax.imageio.ImageIO;
-
 import main.Board;
 
 public class Piece {
 
-    public BufferedImage image;
+    public Image image;
     public int x, y;
     public int col, row, preCol, preRow;
     public int color;
@@ -22,6 +21,8 @@ public class Piece {
         this.row = row;
         x = getX(col);
         y = getY(row);
+        preCol = col;
+        preRow = row;
     }
 
     public BufferedImage getImage(String imagePath){
@@ -30,9 +31,8 @@ public class Piece {
 
         try {
             image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-
-
-        } catch (IOException e){
+        }
+        catch (IOException e){
             e.printStackTrace();
         }
         return image;

@@ -7,10 +7,10 @@ public class Rook extends Piece{
         super(color, col, row);
         
          if(color == GamePanel.WHITE){
-            image = getImage("/piece/w-rook");
+            image = getImage("../resources/piece/w-rook");
          }
          else {
-            image = getImage("/piece/b-rook");
+            image = getImage("../resources/piece/b-rook");
          }
     }
 }

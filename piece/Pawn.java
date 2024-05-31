@@ -8,10 +8,10 @@ public class Pawn extends Piece{
         super(color, col, row);
         
          if(color == GamePanel.WHITE){
-            image = getImage("/piece/w-pawn");
+            image = getImage("../resources/piece/w-pawn");
          }
          else {
-            image = getImage("/piece/b-pawn");
+            image = getImage("../resources/piece/b-pawn");
          }
     }
 }

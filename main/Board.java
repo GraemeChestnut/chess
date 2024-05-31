@@ -22,12 +22,12 @@ public class Board {
                 
                 if(c == 0){
 
-                    g2.setColor(new Color(0, 0, 0));
+                    g2.setColor(new Color(163, 94, 44));
                     c++;
                 }
                 else{
 
-                    g2.setColor(new Color(255,255,255));
+                    g2.setColor(new Color(217, 192, 173));
                     c--;
                 }
                 //creates square for every 64 square on the board
