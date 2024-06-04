@@ -44,12 +44,14 @@ public class Piece {
     public int getY(int row){
         return row * Board.SQUARE_SIZE;
     }
+
     public int getCol(int x){
-        return (x + Board.HALF_SQUARE_SIZE/Board.SQUARE_SIZE);
+        return (x + Board.HALF_SQUARE_SIZE) /Board.SQUARE_SIZE;
     }
     public int getRow(int y){
-        return (y + Board.HALF_SQUARE_SIZE/Board.SQUARE_SIZE);
+        return (y + Board.HALF_SQUARE_SIZE) /Board.SQUARE_SIZE;
     }
+
     public void updatePosition(){
 
         x = getX(col);
@@ -57,6 +59,19 @@ public class Piece {
         preCol = getCol(x);
         preRow = getRow(y);
     }
+
+    public boolean canMove(int targetCol, int targetRow){
+        return false;
+    }
+
+    //checks if movement in inside of the board dimensions
+    public boolean isWithinBoard(int targetCol, int targetRow){
+        if(targetCol >= 0 && targetCol <= 7 && targetRow >= 0 && targetRow <=7){
+            return true;
+        }
+        return false;
+    }
+
     public void draw(Graphics2D g2){
         g2.drawImage(image, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
     }

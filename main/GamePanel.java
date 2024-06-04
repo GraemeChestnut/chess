@@ -36,6 +36,11 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int BLACK = 1;
     int currentColor = WHITE;
 
+    // BOOLEAN
+
+    boolean canMove;
+    boolean validSquare;
+
 
     //creating panel for window
     public GamePanel(){
@@ -139,8 +144,8 @@ public class GamePanel extends JPanel implements Runnable{
                     //checks only if it is the current color
 
                     if(piece.color == currentColor &&
-                    piece.col == mouse.x/Board.SQUARE_SIZE 
-                    && piece.row == mouse.y/Board.SQUARE_SIZE){
+                        piece.col == mouse.x/Board.SQUARE_SIZE && 
+                        piece.row == mouse.y/Board.SQUARE_SIZE) {
                         
                         activeP = piece;
                     }
@@ -166,6 +171,9 @@ public class GamePanel extends JPanel implements Runnable{
     //simulates next move, checks if can move to legal spot
     private void simulate(){
 
+        canMove = false;
+        validSquare = false;
+
         //when piece is held, update its position based on mouse position
 
         activeP.x = mouse.x - Board.HALF_SQUARE_SIZE;
@@ -173,6 +181,7 @@ public class GamePanel extends JPanel implements Runnable{
         activeP.col = activeP.getCol(activeP.x);
         activeP.row = activeP.getRow(activeP.y);
 
+        // check if the piece is hovering over a reachable square
 
     }
 
@@ -185,7 +194,7 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D)g;
 
         //board
-        
+        board.draw(g2);
         
         //pieces
     
@@ -196,8 +205,10 @@ public class GamePanel extends JPanel implements Runnable{
 
         //changes square where active piece is hovering
         
+        
         if(activeP != null){
-            g2.setColor(Color.pink);
+            
+            g2.setColor(Color.white);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
             g2.fillRect(activeP.col*Board.SQUARE_SIZE, activeP.row*Board.SQUARE_SIZE,
                 Board.SQUARE_SIZE, Board.SQUARE_SIZE);
