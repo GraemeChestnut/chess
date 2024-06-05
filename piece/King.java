@@ -25,11 +25,13 @@ public class King extends Piece {
             if(Math.abs(targetCol - preCol) + Math.abs(targetRow - preRow) == 1 
                 //checks if is moving diagonal 
                 || Math.abs(targetCol - preCol) * Math.abs(targetRow - preRow) == 1){
-                return true;
+                
+                if(isValidSquare(targetCol, targetRow)){
+                    return true;
+                }
             }
-
-
         }
+        
         return false;
     }
 }

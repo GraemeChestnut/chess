@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.awt.*;
 import javax.imageio.ImageIO;
 import main.Board;
+import main.GamePanel;
 
 public class Piece {
 
@@ -13,6 +14,7 @@ public class Piece {
     public int x, y;
     public int col, row, preCol, preRow;
     public int color;
+    public Piece hittingP;
 
     public Piece(int color, int col, int row){
 
@@ -51,6 +53,14 @@ public class Piece {
     public int getRow(int y){
         return (y + Board.HALF_SQUARE_SIZE) /Board.SQUARE_SIZE;
     }
+    public int getIndex(){
+        for(int i = 0; i < GamePanel.simPieces.size(); i++){
+            if(GamePanel.simPieces.get(i) == this){
+                return i;
+            }
+        }
+        return 0;
+    }
 
     public void updatePosition(){
 
@@ -59,7 +69,12 @@ public class Piece {
         preCol = getCol(x);
         preRow = getRow(y);
     }
-
+    public void resetPosition(){
+        col = preCol;
+        row = preRow;
+        x = getX(col);
+        y = getY(row);
+    }
     public boolean canMove(int targetCol, int targetRow){
         return false;
     }
@@ -71,7 +86,32 @@ public class Piece {
         }
         return false;
     }
+    public Piece getHittingP(int targetCol, int targetRow){
+        for(Piece piece : GamePanel.simPieces){
+            if(piece.col == targetCol && piece.row == targetRow && piece != this){
+                return piece;
+            }
+        }
+        return null;
+    }
+    public boolean isValidSquare(int targetCol, int targetRow){
+        
+        hittingP = getHittingP(targetCol, targetRow);
 
+        if(hittingP == null){ // this square is EMPTY
+            return true;
+        }
+        else{ //this square already has a piece in it
+
+            if(hittingP.color != this.color){ // piece must be different color to be taken
+                return true;
+            }
+            else {
+                hittingP = null;
+            }
+        }
+        return false;
+    }
     public void draw(Graphics2D g2){
         g2.drawImage(image, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
     }
