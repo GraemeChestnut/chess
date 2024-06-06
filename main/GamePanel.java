@@ -54,7 +54,8 @@ public class GamePanel extends JPanel implements Runnable{
         addMouseMotionListener(mouse); 
         addMouseListener(mouse);
 
-        setPieces();
+       // setPieces();
+        testKing();
         copyPieces(pieces, simPieces);
     }
 
@@ -62,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread = new Thread(this);
         gameThread.start();
         
-        setPieces();
+       // setPieces();
     }
 
     public void setPieces(){
@@ -105,6 +106,10 @@ public class GamePanel extends JPanel implements Runnable{
         pieces.add(new King(BLACK, 4, 0));
         
 
+    }
+    public void testKing(){
+        pieces.add(new Queen(BLACK, 3, 0));
+        pieces.add(new King(WHITE, 4, 7));
     }
 
     public void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target){
@@ -239,9 +244,22 @@ public class GamePanel extends JPanel implements Runnable{
 
             checkCastling();
 
-            validSquare = true;
+            if(isIllegal(activeP) == false){
+                validSquare = true;
+            }
         }
+    }
 
+    private boolean isIllegal(Piece king){
+
+        if(king.type == Type.KING){
+            for(Piece piece : simPieces){
+                if(piece != king && piece.color != king.color && piece.canMove(king.col, king.row)){
+                    return true;
+                } 
+            }
+        }
+        return false;
     }
 
     private void checkCastling(){
@@ -340,17 +358,25 @@ public class GamePanel extends JPanel implements Runnable{
             // hover animation over where piece is
             // shows where piece wil go when dropped
             if(canMove){
-                g2.setColor(Color.white);
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-                g2.fillRect(activeP.col*Board.SQUARE_SIZE, activeP.row*Board.SQUARE_SIZE,
-                        Board.SQUARE_SIZE, Board.SQUARE_SIZE);
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                if(isIllegal(activeP)){
+                    g2.setColor(Color.red);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                    g2.fillRect(activeP.col*Board.SQUARE_SIZE, activeP.row*Board.SQUARE_SIZE,
+                            Board.SQUARE_SIZE, Board.SQUARE_SIZE);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                }
+                else{
+                    g2.setColor(Color.white);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+                    g2.fillRect(activeP.col*Board.SQUARE_SIZE, activeP.row*Board.SQUARE_SIZE,
+                            Board.SQUARE_SIZE, Board.SQUARE_SIZE);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                }  
             }
-            
             // hover animation over last spot when picking up piece
             // easier to see where piece was before and where you can move it
-            g2.setColor(Color.red);
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            g2.setColor(Color.blue);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f));
                 g2.fillRect(activeP.preCol*Board.SQUARE_SIZE, activeP.preRow*Board.SQUARE_SIZE,
                         Board.SQUARE_SIZE, Board.SQUARE_SIZE);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
