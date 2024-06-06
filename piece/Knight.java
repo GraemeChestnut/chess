@@ -14,5 +14,13 @@ public class Knight extends Piece {
                 image = getImage("../resources/piece/b-knight");
             }
         }
+        
+    public boolean canMove(int targetCol, int targetRow){
+
+        if(isWithinBoard(targetCol, targetRow)){
+
+        }
+        return false;
+    }
 
 }

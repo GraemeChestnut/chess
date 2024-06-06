@@ -171,6 +171,7 @@ public class GamePanel extends JPanel implements Runnable{
                     //updates piece list for pieces that have been removed or taken
                     copyPieces(simPieces, pieces);
                     activeP.updatePosition();
+                    
                 }
                 else {
                     // reset everything since move is invalid

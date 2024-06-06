@@ -48,10 +48,10 @@ public class Piece {
     }
 
     public int getCol(int x){
-        return (x + Board.HALF_SQUARE_SIZE) /Board.SQUARE_SIZE;
+        return (x + Board.HALF_SQUARE_SIZE) / Board.SQUARE_SIZE;
     }
     public int getRow(int y){
-        return (y + Board.HALF_SQUARE_SIZE) /Board.SQUARE_SIZE;
+        return (y + Board.HALF_SQUARE_SIZE) / Board.SQUARE_SIZE;
     }
     public int getIndex(){
         for(int i = 0; i < GamePanel.simPieces.size(); i++){
@@ -69,6 +69,7 @@ public class Piece {
         preCol = getCol(x);
         preRow = getRow(y);
     }
+    
     public void resetPosition(){
         col = preCol;
         row = preRow;
