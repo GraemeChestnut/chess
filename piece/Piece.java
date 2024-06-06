@@ -81,7 +81,7 @@ public class Piece {
 
     //checks if movement in inside of the board dimensions
     public boolean isWithinBoard(int targetCol, int targetRow){
-        if(targetCol >= 0 && targetCol <= 7 && targetRow >= 0 && targetRow <=7){
+        if(targetCol >= 0 && targetCol <= 7 && targetRow >= 0 && targetRow <= 7){
             return true;
         }
         return false;

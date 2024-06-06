@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
         addMouseListener(mouse);
 
         setPieces();
-        copyPieces(simPieces, pieces);
+        copyPieces(pieces, simPieces);
     }
 
     public void launchGame(){
@@ -79,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
         pieces.add(new Queen(WHITE, 3, 7));
         //pieces.add(new King(WHITE, 4, 7));
         pieces.add(new King(WHITE, 4, 4));
+       
         
 
         //Black team 
@@ -102,7 +103,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
-    public void copyPieces(ArrayList<Piece> target, ArrayList<Piece> source){
+    public void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target){
 
         target.clear();
         for(int i = 0; i < source.size(); i++){
@@ -162,17 +163,18 @@ public class GamePanel extends JPanel implements Runnable{
         }
         //////// MOUSE BUTTON RELEASED ////////
         if(mouse.pressed == false){
+
             if(activeP != null){
                 
                 if(validSquare){
 
                     //updates piece list for pieces that have been removed or taken
-                    copyPieces(pieces, simPieces);
+                    copyPieces(simPieces, pieces);
                     activeP.updatePosition();
                 }
                 else {
                     // reset everything since move is invalid
-                    copyPieces(simPieces, pieces);
+                    copyPieces(pieces, simPieces);
                     activeP.resetPosition();
                     activeP = null;
                 } 
@@ -188,7 +190,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         // reset the piece list in every loop
         // needed to restore piece that is removed during the simulation
-        copyPieces(simPieces, pieces);
+        copyPieces(pieces, simPieces);
 
         //when piece is held, update its position based on mouse position
 
@@ -225,7 +227,6 @@ public class GamePanel extends JPanel implements Runnable{
         //pieces
     
         for(int i = 0; i < simPieces.size(); i++){
-          
             simPieces.get(i).draw(g2);
         }
 
