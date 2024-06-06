@@ -74,14 +74,12 @@ public class GamePanel extends JPanel implements Runnable{
         pieces.add(new Knight(WHITE, 6, 7));
         pieces.add(new Rook(WHITE, 0, 7));
         pieces.add(new Rook(WHITE, 7, 7));
-        pieces.add(new Bishop(WHITE, 2, 7));
+        pieces.add(new Bishop(WHITE, 2, 7)); 
         pieces.add(new Bishop(WHITE, 5, 7));
-        pieces.add(new Queen(WHITE, 3, 7));
-        //pieces.add(new King(WHITE, 4, 7));
-        pieces.add(new King(WHITE, 4, 4));
-       
+        pieces.add(new Queen(WHITE, 3, 4)); // put back in row 7
+        pieces.add(new King(WHITE, 4, 7));
         
-
+       
         //Black team 
         pieces.add(new Pawn(BLACK, 0, 1));
         pieces.add(new Pawn(BLACK, 1, 1));
@@ -235,6 +233,9 @@ public class GamePanel extends JPanel implements Runnable{
         
         
         if(activeP != null){
+            
+            // hover animation over where piece is
+            // shows where piece wil go when dropped
             if(canMove){
                 g2.setColor(Color.white);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
@@ -242,6 +243,15 @@ public class GamePanel extends JPanel implements Runnable{
                         Board.SQUARE_SIZE, Board.SQUARE_SIZE);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             }
+            
+            // hover animation over last spot when picking up piece
+            // easier to see where piece was before and where you can move it
+            g2.setColor(Color.red);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                g2.fillRect(activeP.preCol*Board.SQUARE_SIZE, activeP.preRow*Board.SQUARE_SIZE,
+                        Board.SQUARE_SIZE, Board.SQUARE_SIZE);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
             
             //draw the piece, wont be hidden by board or by board hover
             activeP.draw(g2);

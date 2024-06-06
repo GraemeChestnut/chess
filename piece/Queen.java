@@ -4,8 +4,8 @@ import main.GamePanel;
 
 public class Queen extends Piece {
     
-    public Queen (int color, int col, int row){
-        super(color, col, row);
+   public Queen (int color, int col, int row){
+      super(color, col, row);
         
          if(color == GamePanel.WHITE){
             image = getImage("../resources/piece/w-queen");
@@ -13,5 +13,22 @@ public class Queen extends Piece {
          else {
             image = getImage("../resources/piece/b-queen");
          }
-    }
+   }
+
+   public boolean canMove(int targetCol, int targetRow){
+
+      if(isWithinBoard(targetCol, targetRow) && isSameSquare(targetCol, targetRow) == false){
+         if((targetCol == preCol || targetRow == preRow) || (Math.abs(targetCol - preCol) == Math.abs(targetRow - preRow))){
+            
+            if((isValidSquare(targetCol, targetRow)) 
+            // checks for both diagonal and straight since queen is like rook and bishop 
+            && (pieceIsOnDiagonalLine(targetCol, targetRow) || pieceIsOnStraightLine(targetCol, targetRow)) == false){
+
+               return true;
+            }
+         }
+      }
+
+      return false;
+   }
 }

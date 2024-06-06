@@ -15,4 +15,21 @@ public class Bishop extends Piece {
             }
         }
 
+    public boolean canMove(int targetCol, int targetRow){
+
+        if(isWithinBoard(targetCol, targetRow) && isSameSquare(targetCol, targetRow) == false){
+
+            //bishop move any number diagonally
+            //col to row ratio should be 1:1
+
+            if(Math.abs(targetCol - preCol) == Math.abs(targetRow - preRow)){
+                if(isValidSquare(targetCol, targetRow) && pieceIsOnDiagonalLine(targetCol, targetRow) == false){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
