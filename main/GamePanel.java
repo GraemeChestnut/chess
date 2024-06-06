@@ -32,6 +32,8 @@ public class GamePanel extends JPanel implements Runnable{
     public static ArrayList<Piece> pieces = new ArrayList<>();
     public static ArrayList<Piece> simPieces = new ArrayList<>();
     Piece activeP;
+    public static Piece castlingP;
+    
 
     //COLOR
     public static final int WHITE = 0;
@@ -171,6 +173,9 @@ public class GamePanel extends JPanel implements Runnable{
                     //updates piece list for pieces that have been removed or taken
                     copyPieces(simPieces, pieces);
                     activeP.updatePosition();
+                    if(castlingP != null){
+                        castlingP.updatePosition();
+                    }
                     
                     changePlayer(); // this is not the problem for double capture
                 }
@@ -194,6 +199,13 @@ public class GamePanel extends JPanel implements Runnable{
         // needed to restore piece that is removed during the simulation
         copyPieces(pieces, simPieces);
 
+        ///reset castling piece position
+        if(castlingP != null){
+            castlingP.col = castlingP.preCol;
+            castlingP.x = castlingP.getX(castlingP.col);
+            castlingP = null;
+        }
+
         //when piece is held, update its position based on mouse position
 
         activeP.x = mouse.x - Board.HALF_SQUARE_SIZE;
@@ -205,16 +217,33 @@ public class GamePanel extends JPanel implements Runnable{
         if(activeP.canMove(activeP.col, activeP.row)){
 
             canMove = true;
-            validSquare = true;
+            
 
             //if hitting piece, remove from list, which removes from board
             if(activeP.hittingP != null){
                 simPieces.remove(activeP.hittingP.getIndex());
             }
+
+            checkCastling();
+
+            validSquare = true;
         }
 
     }
-    
+
+    private void checkCastling(){
+
+        if(castlingP != null){
+            if(castlingP.col == 0){
+                castlingP.col += 3;
+            }
+            else if(castlingP.col == 7){
+                castlingP.col -= 2;
+            }
+            castlingP.x = castlingP.getX(castlingP.col);
+        }
+    }
+
     private void changePlayer(){
         if(currentColor == WHITE){
             currentColor = BLACK;
