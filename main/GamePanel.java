@@ -55,15 +55,13 @@ public class GamePanel extends JPanel implements Runnable{
         addMouseListener(mouse);
 
         setPieces();
-        
+        //testing();
         copyPieces(pieces, simPieces);
     }
 
     public void launchGame(){
         gameThread = new Thread(this);
         gameThread.start();
-        
-       // setPieces();
     }
 
     public void setPieces(){
@@ -107,9 +105,11 @@ public class GamePanel extends JPanel implements Runnable{
         
 
     }
-    public void testKing(){
+    public void testing(){
         pieces.add(new Queen(BLACK, 3, 0));
-        pieces.add(new King(WHITE, 4, 7));
+        pieces.add(new Queen(WHITE, 3, 0));
+        pieces.add(new King(WHITE, 0,0));
+        pieces.add(new King(BLACK, 0,7));
     }
 
     public void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target){
