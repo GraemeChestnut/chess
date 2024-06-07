@@ -110,9 +110,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
     public void testing(){
-        pieces.add(new Queen(WHITE, 3, 0));
+        pieces.add(new Pawn(BLACK, 0, 3));
+        pieces.add(new Pawn(WHITE, 0, 4));
         pieces.add(new King(WHITE, 7,7));
-        pieces.add(new King(BLACK, 5,7));
+        pieces.add(new King(BLACK, 0,0));
+        pieces.add(new Queen(BLACK, 3, 0));
     }
 
     public void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target){
@@ -476,22 +478,36 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     private boolean isStalemate(){
-
-        int count = 0;
+        
+        //kingCanMove(getKing(true)) == false && 
         ArrayList<Piece> opponentsPiece = new ArrayList<>();
         //count the number of pieces
-        for(Piece piece : simPieces){
-            if(piece.color != currentColor){
-                count++;
-            }
-        }
+        if(isKinginCheck() == false){
+            for(Piece piece : simPieces){
+                if(piece.color != currentColor){
+                    opponentsPiece.add(piece);
+                }
 
-        if(count == 1){
-            if(kingCanMove(getKing(true)) == false){
+            }
+            for (Piece piece : opponentsPiece){
+                if(piece.type != Type.KING || piece.type != Type.PAWN ){
+                    return false;
+                }
+                else{
+                    for(int c = 0, r = 0; c < 8; c++, r++){
+                        if(piece.canMove(c, r)){
+                            System.out.println("testing can move");
+                            return false;
+                        }
+                    }
+                }
                 return true;
             }
+            
         }
+            
         return false;
+        
     }
 
     private void checkCastling(){
