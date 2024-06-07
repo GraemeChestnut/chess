@@ -21,7 +21,7 @@ public class Knight extends Piece {
     public boolean canMove(int targetCol, int targetRow){
 
         if(isWithinBoard(targetCol, targetRow)){
-            //knight move ration is 2:1 or 1:2
+            //knight move ratio is 2:1 or 1:2
             //col * row must be 2 in order for knight to move there
             if(Math.abs(targetCol - preCol) * Math.abs(targetRow - preRow) == 2){
                 if(isValidSquare(targetCol, targetRow)){
