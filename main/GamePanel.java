@@ -57,7 +57,8 @@ public class GamePanel extends JPanel implements Runnable{
         addMouseListener(mouse);
 
         //setPieces();
-        testing();
+        //testing();
+        test2();
         copyPieces(pieces, simPieces);
     }
 
@@ -110,11 +111,17 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
     public void testing(){
-        pieces.add(new Pawn(BLACK, 0, 3));
-        pieces.add(new Pawn(WHITE, 0, 4));
-        pieces.add(new King(WHITE, 7,7));
-        pieces.add(new King(BLACK, 0,0));
-        pieces.add(new Queen(BLACK, 3, 0));
+        pieces.add(new Pawn(BLACK, 0 , 1));
+        pieces.add(new King(WHITE, 7,6));
+        pieces.add(new King(BLACK, 1,0));
+        
+    }
+    public void test2(){
+            pieces.add(new Pawn(BLACK, 0 , 1));
+            pieces.add(new King(WHITE, 7,7));
+            pieces.add(new King(BLACK, 1,0));
+            pieces.add(new Pawn(WHITE, 0 , 4));
+            pieces.add(new Queen(BLACK, 5, 5));
     }
 
     public void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target){
@@ -153,7 +160,7 @@ public class GamePanel extends JPanel implements Runnable{
         if(promotion){
             promoting();
         }
-        else if (gameover == false && stalemate == false){
+        if (gameover == false && stalemate == false){
 
         ///// MOUSE BUTTON PRESSED
             if(mouse.pressed){
@@ -479,35 +486,43 @@ public class GamePanel extends JPanel implements Runnable{
 
     private boolean isStalemate(){
         
-        //kingCanMove(getKing(true)) == false && 
+        Piece king = getKing(true);
+
+        boolean draw = false;
+
         ArrayList<Piece> opponentsPiece = new ArrayList<>();
+
         //count the number of pieces
-        if(isKinginCheck() == false){
+        //checking if the only pieces left are kings
+        if(simPieces.get(0).type == Type.KING && simPieces.get(1).type == Type.KING 
+                && simPieces.size() == 2){
+            return true;
+        }
+        if(isKinginCheck() == false && kingCanMove(king) == false){
+            opponentsPiece.clear();
+            //System.out.println("\ntesting");
             for(Piece piece : simPieces){
+                //if piece is other teams color
                 if(piece.color != currentColor){
+                    System.out.println("should print twice");
                     opponentsPiece.add(piece);
                 }
 
             }
             for (Piece piece : opponentsPiece){
-                if(piece.type != Type.KING || piece.type != Type.PAWN ){
-                    return false;
-                }
-                else{
-                    for(int c = 0, r = 0; c < 8; c++, r++){
-                        if(piece.canMove(c, r)){
-                            System.out.println("testing can move");
+                for(int c = 0 ; c < 8; c++){
+                    for(int r = 0; r < 8; r++){
+                        if(piece.canMove(c, r) && isIllegal(king) == false){
+                            //stalemate is not possible if 
                             return false;
                         }
+                        else draw = true;
                     }
-                }
-                return true;
-            }
-            
+                }   
+            }              
         }
-            
-        return false;
-        
+        //returns not stalemate if king can move
+        return draw;
     }
 
     private void checkCastling(){
