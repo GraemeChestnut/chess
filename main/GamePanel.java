@@ -56,9 +56,9 @@ public class GamePanel extends JPanel implements Runnable{
         addMouseMotionListener(mouse); 
         addMouseListener(mouse);
 
-        //setPieces();
+        setPieces();
         //testing();
-        test2();
+        //test2();
         copyPieces(pieces, simPieces);
     }
 
